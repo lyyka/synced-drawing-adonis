@@ -18,11 +18,15 @@ export default class RoomService {
     }
 
     public isUsernameBusy(username: string, room: Room): boolean {
-        return room.getParticipants().some(participant => participant.getName() === username)
+        return room.participantExists(username)
     }
 
     public join(username: string, room: Room): void {
         room.addParticipant(username)
+    }
+
+    public leave(username: string, room: Room): void {
+        room.removeParticipant(username)
     }
 
     public find(code: string): Room | undefined {

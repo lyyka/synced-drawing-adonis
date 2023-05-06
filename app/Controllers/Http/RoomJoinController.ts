@@ -1,7 +1,6 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import RoomJoin from 'App/Validators/RoomJoinValidator'
 import RoomService from 'App/Services/RoomService'
-import { inspect } from 'util'
 
 export default class RoomJoinController {
     public async index(ctx: HttpContextContract) {
@@ -30,6 +29,8 @@ export default class RoomJoinController {
         }
 
         roomService.join(data.username, room)
+
+        ctx.session.put('username', data.username)
 
         return ctx.response
             .redirect()

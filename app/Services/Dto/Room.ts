@@ -18,11 +18,22 @@ export default class Room {
         return this.code
     }
 
+    public participantExists(username: string): boolean {
+        return this.participants.some(p => p.getName() === username)
+    }
+
+    public indexOfParticipant(username: string): number {
+        return this.participants.findIndex(p => p.getName() === username)
+    }
+
     public addParticipant(username: string): void {
         this.participants.push(new RoomParticipant(username))
     }
 
-    public getParticipants(): RoomParticipant[] {
-        return this.participants
+    public removeParticipant(username: string): void {
+        const idx = this.indexOfParticipant(username)
+        if (idx >= 0) {
+            this.participants.splice(idx, 1)
+        }
     }
 }

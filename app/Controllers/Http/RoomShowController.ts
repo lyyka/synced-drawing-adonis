@@ -12,6 +12,16 @@ export default class RoomJoinController {
                 .toRoute('home')
         }
 
-        return ctx.view.render('pages/room_show')
+        // prevents users from joining with link only
+        // as we need the username in session for every room visit
+        if (!ctx.session.has('username')) {
+            return ctx.response
+                .redirect()
+                .toRoute('home')
+        }
+
+        return ctx.view.render('pages/room_show', {
+            code
+        })
     }
 }

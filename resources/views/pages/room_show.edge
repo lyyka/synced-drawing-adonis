@@ -5,6 +5,14 @@
 container mx-auto
 text-center
 bg-purple-50 p-4 my-4">
-    <h1>Room</h1>
+    <h1>Room {{ code }}</h1>
+
+    <form action="{{ route('room.leave', {code}) }}" method="post">
+        {{ csrfField() }}
+
+        <button type="submit" class="rounded-xl bg-purple-500 text-white py-2 px-4">
+            Leave this room
+        </button>
+    </form>
 </section>
 @end

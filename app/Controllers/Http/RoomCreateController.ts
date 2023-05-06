@@ -16,6 +16,8 @@ export default class RoomCreateController {
 
         roomService.join(data.username, room)
 
+        ctx.session.put('username', data.username)
+
         return ctx.response
             .redirect()
             .toRoute('room.show', { code: room.getCode() })
