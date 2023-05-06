@@ -4,7 +4,18 @@ import RoomService from 'App/Services/RoomService'
 
 export default class RoomJoinController {
     public async index(ctx: HttpContextContract) {
-        return ctx.view.render('pages/room_join')
+        if (ctx.params.code) {
+            const roomService = new RoomService
+            if (!roomService.find(ctx.params.code)) {
+                return ctx.response
+                    .redirect()
+                    .toRoute('home')
+            }
+        }
+
+        return ctx.view.render('pages/room_join', {
+            code: ctx.params.code
+        })
     }
 
     public async join(ctx: HttpContextContract) {
@@ -28,9 +39,7 @@ export default class RoomJoinController {
                 .back()
         }
 
-        roomService.join(data.username, room)
-
-        ctx.session.put('username', data.username)
+        roomService.join(data.username, room, ctx.session)
 
         return ctx.response
             .redirect()

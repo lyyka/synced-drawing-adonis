@@ -1,4 +1,5 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import RoomParticipantSessionService from 'App/Services/RoomParticipantSessionService'
 import RoomService from 'App/Services/RoomService'
 
 export default class RoomLeaveController {
@@ -20,7 +21,12 @@ export default class RoomLeaveController {
                 .back()
         }
 
-        roomService.leave(ctx.session.pull('username'), room)
+        const sessionService = new RoomParticipantSessionService(ctx.session)
+        const roomParticipant = sessionService.current()
+
+        if (roomParticipant) {
+            roomService.leave(roomParticipant.getName(), room)
+        }
 
         return ctx.response
             .redirect()

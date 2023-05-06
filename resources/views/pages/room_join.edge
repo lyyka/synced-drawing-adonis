@@ -13,7 +13,7 @@ bg-purple-50 p-4 my-4">
         <div class="mb-3">
             <label for="code" class="mb-2 inline-block">Room code:</label>
             <input id="code" type="text" class="rounded-xl w-full" 
-            value="{{ flashMessages.get('code') || '' }}"
+            value="{{ flashMessages.get('code') || (code || '') }}"
             name="code" placeholder="Room code" />
             @if(flashMessages.has('errors.code'))
                 <label class="text-red-500">{{ flashMessages.get('errors.code') }}</label>

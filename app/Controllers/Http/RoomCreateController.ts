@@ -14,9 +14,7 @@ export default class RoomCreateController {
 
         const room = roomService.create(data.room_name)
 
-        roomService.join(data.username, room)
-
-        ctx.session.put('username', data.username)
+        roomService.join(data.username, room, ctx.session)
 
         return ctx.response
             .redirect()

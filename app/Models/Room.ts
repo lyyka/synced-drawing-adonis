@@ -18,16 +18,28 @@ export default class Room {
         return this.code
     }
 
-    public participantExists(username: string): boolean {
+    public usernameExists(username: string): boolean {
         return this.participants.some(p => p.getName() === username)
+    }
+
+    public participantExists(paraticipant: RoomParticipant): boolean {
+        return this.participants.some(p => p.getName() === paraticipant.getName() && p.getId() === paraticipant.getId())
     }
 
     public indexOfParticipant(username: string): number {
         return this.participants.findIndex(p => p.getName() === username)
     }
 
-    public addParticipant(username: string): void {
-        this.participants.push(new RoomParticipant(username))
+    public addParticipant(username: string): RoomParticipant | null {
+        const participant = new RoomParticipant(username)
+
+        if (this.usernameExists(username)) {
+            return null
+        }
+
+        this.participants.push(participant)
+
+        return participant
     }
 
     public removeParticipant(username: string): void {
