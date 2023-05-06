@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Synced drawing with AdonisJS</title>
-    @entryPointScripts('app')
     @entryPointStyles('app')
 </head>
 <body>
@@ -50,5 +49,8 @@
                 href="https://www.linkedin.com/in/luka-robajac/">LinkedIn</a>
         </div>
     </footer>
+
+    @entryPointScripts('app')
+    @!section('js')
 </body>
 </html>

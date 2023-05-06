@@ -1,18 +1,40 @@
 @layout('layouts/app')
 
+@section('js')
+    @entryPointScripts('room')
+@end
+
 @section('content')
 <section class="rounded-3xl 
 container mx-auto
-text-center
 bg-purple-50 p-4 my-4">
-    <h1>Room {{ code }}</h1>
+    <div class="flex justify-between items-center">
+        <p>{{ code }}</p>
+    
+        <div class="flex items-center">
+            <img class="inline-block mr-2" alt="User icon" src="/icons/user-icon-16.png" />
+            <p id="room-users-count"></p>
+        </div>
+    </div>
+</section>
 
-    <form action="{{ route('room.leave', {code}) }}" method="post">
-        {{ csrfField() }}
+<section class="rounded-3xl 
+container mx-auto
+bg-white border p-4 my-4">
 
-        <button type="submit" class="rounded-xl bg-purple-500 text-white py-2 px-4">
-            Leave this room
-        </button>
-    </form>
+</section>
+
+<section class="rounded-3xl 
+container mx-auto
+bg-purple-50 p-4 my-4">
+    <div class="flex justify-end">
+        <form action="{{ route('room.leave', {code}) }}" method="post">
+            {{ csrfField() }}
+    
+            <button type="submit" class="rounded-xl bg-purple-500 text-white py-2 px-4">
+                Leave this room
+            </button>
+        </form>
+    </div>
 </section>
 @end

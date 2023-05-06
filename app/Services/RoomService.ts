@@ -2,7 +2,9 @@ import Room from "./Dto/Room"
 import { nanoid } from 'nanoid'
 
 export default class RoomService {
-    private static rooms: { [key: string]: Room } = {}
+    private static rooms: { [key: string]: Room } = {
+        // test: new Room("test", "test")
+    }
 
     public create(name: string): Room {
         const code: string = nanoid()
