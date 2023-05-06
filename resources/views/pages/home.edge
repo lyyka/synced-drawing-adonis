@@ -1,0 +1,32 @@
+@layout('layouts/app')
+
+@section('content')
+<section class="rounded-3xl bg-purple-50 p-4 m-4 
+h-96 
+container mx-auto
+grid grid-cols-2
+items-center 
+justify-between">
+    <div class="px-5">
+        <h1 class="text-3xl font-bold mb-5">
+            Synced drawing app
+        </h1>
+        <p class="text-base mb-5">The app that lets you join rooms and draw together with other participants</p>
+
+        <div class="flex gap-2 items-center">
+            <a class="rounded-xl bg-purple-500 text-white py-2 px-4" href="{{ route('room.join.show') }}">
+                Join a room now!
+            </a>
+
+            <p>or</p>
+
+            <a class="underline" href="{{ route('room.create.show') }}">
+                create a new one
+            </a>
+        </div>
+    </div>
+    <div>
+        <div class="h-80" lottie="home-hero"></div>
+    </div>
+</section>
+@end

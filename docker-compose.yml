@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  synced_drawing_adonis:
+    container_name: synced_drawing_adonis
+    restart: always
+    build:
+      context: .
+      target: dependencies
+    ports:
+      - ${PORT}:${PORT}
+      - 9229:9229
+      - 8080:8080
+    env_file:
+      - .env
+    volumes:
+      - ./:/home/node/app
+      # Uncomment the below line if you developing on MacOS
+      - /home/node/app/node_modules
+    command: dumb-init node ace serve --watch --node-args="--inspect=0.0.0.0" --encore-args="--host ${HOST} --port 8080 --public 127.0.0.1:8080"

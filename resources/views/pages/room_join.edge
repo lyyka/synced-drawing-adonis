@@ -1,0 +1,40 @@
+@layout('layouts/app')
+
+@section('content')
+<section class="rounded-3xl 
+container mx-auto
+text-center
+bg-purple-50 p-4 my-4">
+    <h1 class="text-xl mb-2 font-bold">Join the room by entering the code below</h1>
+    <p class="mb-5">The room code is an 21 characater long string</p>
+    <form action="{{ route('room.join.perform') }}" class="block w-1/2 mx-auto text-left" method="post">
+        {{ csrfField() }}
+
+        <div class="mb-3">
+            <label for="code" class="mb-2 inline-block">Room code:</label>
+            <input id="code" type="text" class="rounded-xl w-full" 
+            value="{{ flashMessages.get('code') || '' }}"
+            name="code" placeholder="Room code" />
+            @if(flashMessages.has('errors.code'))
+                <label class="text-red-500">{{ flashMessages.get('errors.code') }}</label>
+            @elseif(session.has('errors.code'))
+                <label class="text-red-500">{{ session.get('errors.code') }}</label>
+            @endif
+        </div>
+
+        <div class="mb-3">
+            <label for="username" class="mb-2 inline-block">Your username:</label>
+            <input id="username" type="text" class="rounded-xl w-full" 
+            value="{{ flashMessages.get('username') || '' }}"
+            name="username" placeholder="Your username" />
+            @if(flashMessages.has('errors.username'))
+                <label class="text-red-500">{{ flashMessages.get('errors.username') }}</label>
+            @elseif(session.has('errors.username'))
+                <label class="text-red-500">{{ session.get('errors.username') }}</label>
+            @endif
+        </div>
+        
+        <button type="submit" class="block w-full rounded-xl bg-purple-500 text-white py-2 px-4">Join!</button>
+    </form>
+</section>
+@end
