@@ -26,6 +26,7 @@ export default class RoomLeaveController {
 
         if (roomParticipant) {
             roomService.leave(roomParticipant.getName(), room)
+            sessionService.logout()
         }
 
         return ctx.response

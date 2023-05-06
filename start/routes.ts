@@ -22,6 +22,11 @@ import Route from '@ioc:Adonis/Core/Route'
 
 Route.get('/', 'HomePageController.index').as('home')
 
+// auth
+Route.group(() => {
+    Route.get('/auth/current', 'AuthController.getCurrent').as('auth.current')
+}).prefix('/api')
+
 // room join
 Route.get('/room/join/:code?', 'RoomJoinController.index').as('room.join.show')
     .where('code', {

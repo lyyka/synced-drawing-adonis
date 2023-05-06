@@ -15,6 +15,11 @@ export default class RoomParticipantSessionService {
         }
     }
 
+    public logout(): void {
+        this.session.forget('username')
+        this.session.forget('password')
+    }
+
     public current(): RoomParticipant | null {
         if (!this.session.has('username') || !this.session.has('user_id')) {
             return null

@@ -31,11 +31,11 @@ export default class Room {
     }
 
     public addParticipant(username: string): RoomParticipant | null {
-        const participant = new RoomParticipant(username)
-
         if (this.usernameExists(username)) {
             return null
         }
+
+        const participant = new RoomParticipant(username)
 
         this.participants.push(participant)
 
