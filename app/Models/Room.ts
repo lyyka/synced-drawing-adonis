@@ -23,6 +23,10 @@ export default class Room {
         return this.code
     }
 
+    public isEmpty(): boolean {
+        return this.participants.length === 0
+    }
+
     public usernameExists(username: string): boolean {
         return this.participants.some(p => p.getName() === username)
     }

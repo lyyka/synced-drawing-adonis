@@ -64,6 +64,9 @@ export default class RoomService {
 
     public leave(username: string, room: Room): void {
         room.removeParticipant(username)
+        if (room.isEmpty()) {
+            delete RoomService.rooms[room.getCode()]
+        }
     }
 
     public find(code: string): Room | undefined {
