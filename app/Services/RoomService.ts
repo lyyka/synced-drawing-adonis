@@ -9,6 +9,14 @@ export default class RoomService {
         // test: new Room("test", "test")
     }
 
+    public addCanvasObjectToRoom(object: Object, roomCode: string) {
+        const room = this.find(roomCode)
+
+        if (room) {
+            room.addCanvasObject(object)
+        }
+    }
+
     public create(name: string): Room {
         const code: string = nanoid()
 
@@ -31,10 +39,26 @@ export default class RoomService {
     }
 
     public join(username: string, room: Room, session: SessionContract): void {
-        const participant = room.addParticipant(username);
+        const sessionService = new RoomParticipantSessionService(session)
 
-        if (participant) {
-            (new RoomParticipantSessionService(session)).login(participant)
+        const auth = sessionService.current()
+        let reauth = auth === null
+
+        if (auth && auth.getName() !== username) {
+            auth.setName(username)
+            reauth = true
+        }
+
+        const participant = auth || new RoomParticipant(username);
+
+        room.addParticipant(participant)
+
+        // reauth the user if
+        // 1) no user was authed in the first place
+        // 2) username updated while joining
+        if (reauth) {
+            sessionService.logout()
+            sessionService.login(participant)
         }
     }
 

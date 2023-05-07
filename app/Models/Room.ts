@@ -4,10 +4,15 @@ export default class Room {
     private name: string
     private code: string
     private participants: RoomParticipant[] = []
+    private canvasObjects: Object[] = []
 
     constructor(name: string, code: string) {
         this.name = name
         this.code = code
+    }
+
+    public addCanvasObject(object: Object): void {
+        this.canvasObjects.push(object)
     }
 
     public getName(): string {
@@ -30,16 +35,8 @@ export default class Room {
         return this.participants.findIndex(p => p.getName() === username)
     }
 
-    public addParticipant(username: string): RoomParticipant | null {
-        if (this.usernameExists(username)) {
-            return null
-        }
-
-        const participant = new RoomParticipant(username)
-
+    public addParticipant(participant: RoomParticipant): void {
         this.participants.push(participant)
-
-        return participant
     }
 
     public removeParticipant(username: string): void {

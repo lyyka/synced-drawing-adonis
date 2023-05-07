@@ -1,6 +1,7 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import RoomJoin from 'App/Validators/RoomJoinValidator'
 import RoomService from 'App/Services/RoomService'
+import RoomParticipantSessionService from 'App/Services/RoomParticipantSessionService'
 
 export default class RoomJoinController {
     public async index(ctx: HttpContextContract) {
@@ -34,6 +35,14 @@ export default class RoomJoinController {
 
         if (roomService.isUsernameBusy(data.username, room)) {
             ctx.session.flash('errors.username', 'Username already exists in the room')
+            return ctx.response
+                .redirect()
+                .back()
+        }
+
+        const auth = (new RoomParticipantSessionService(ctx.session)).current()
+        if (auth && roomService.exactParticipantInRoom(auth, room)) {
+            ctx.session.flash('errors.username', 'You are already in this room')
             return ctx.response
                 .redirect()
                 .back()

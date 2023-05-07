@@ -13,6 +13,10 @@ export default class RoomParticipant {
         return this.name
     }
 
+    public setName(name: string): void {
+        this.name = name
+    }
+
     public setId(id: string): void {
         this.id = id
     }

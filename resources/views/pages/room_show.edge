@@ -20,8 +20,35 @@ bg-purple-50 p-4 my-4">
 
 <div class="grid grid-cols-3 gap-4 container mx-auto">
     <div class="rounded-3xl col-span-2 bg-white border p-4 my-4">
-        <h2 class="font-bold text-lg">Canvas</h2>
+        <h2 class="font-bold text-lg mb-3">Canvas</h2>
 
+        <div id="room-canvas-controls" class="grid auto-cols-min grid-flow-col">
+            <div tool="pen" class="px-4 py-0.5 border hover:bg-purple-50 hover:cursor-pointer">
+                <p>Pen</p>
+            </div>
+            <div tool="line" class="px-4 py-0.5 border hover:bg-purple-50 hover:cursor-pointer">
+                <p>Line</p>
+            </div>
+            <div tool="rectangle" class="px-4 py-0.5 border hover:bg-purple-50 hover:cursor-pointer">
+                <p>Rectangle</p>
+            </div>
+            <div tool="circle" class="px-4 py-0.5 border hover:bg-purple-50 hover:cursor-pointer">
+                <p>Cirlce</p>
+            </div>
+            <div tool="text" class="px-4 py-0.5 border hover:bg-purple-50 hover:cursor-pointer">
+                <p>Text</p>
+            </div>
+            <div class="px-4 py-0.5 border">
+                <input id="room-canvas-color" type="color" />
+            </div>
+            <div class="px-4 py-0.5 border flex items-center">
+                <input id="room-canvas-brush-size" value="14" 
+                class="border-none p-0 m-0 focus:border-none focus:border-white focus:shadow-none focus:ring-0"
+                type="number" min="1" max="100" />
+            </div>
+        </div>
+
+        <div id="room-canvas"></div>
     </div>
 
     <div class="max-h-60 overflow-y-auto rounded-3xl bg-white border p-4 my-4">
