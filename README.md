@@ -1,4 +1,5 @@
 # Synced drawing app
+[![Build and deploy a container to an Azure Web App](https://github.com/lyyka/synced-drawing-adonis/actions/workflows/azure-container-webapp.yml/badge.svg)](https://github.com/lyyka/synced-drawing-adonis/actions/workflows/azure-container-webapp.yml)
 
 ## About the app
 This app is designed as a web application where users can either create or join existing rooms.
