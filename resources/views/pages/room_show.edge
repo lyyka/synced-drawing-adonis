@@ -9,7 +9,10 @@
 container mx-auto
 bg-purple-50 p-4 my-4">
     <div class="flex justify-between items-center">
-        <p>{{ code }}</p>
+        <div>
+            <p><strong>Room code:</strong> {{ code }}</p>
+            <p>You can share this code or the URL to allow others to join</p>
+        </div>
     
         <div class="flex items-center">
             <img class="inline-block mr-2" alt="User icon" src="/icons/user-icon-16.png" />
@@ -38,8 +41,11 @@ bg-purple-50 p-4 my-4">
             <div tool="ellipse" class="px-4 py-0.5 border hover:bg-purple-50 hover:cursor-pointer">
                 <p>Ellipse</p>
             </div>
-            <div tool="text" class="px-4 py-0.5 border hover:bg-purple-50 hover:cursor-pointer">
+            {{--  <div tool="text" class="px-4 py-0.5 border hover:bg-purple-50 hover:cursor-pointer">
                 <p>Text</p>
+            </div>  --}}
+            <div tool="eraser" class="px-4 py-0.5 border hover:bg-purple-50 hover:cursor-pointer">
+                <p>Eraser</p>
             </div>
             <div class="px-4 py-0.5 border">
                 <input id="room-canvas-color" type="color" />

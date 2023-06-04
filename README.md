@@ -37,13 +37,9 @@ Server side, socket setup is written inside `app/Services/SocketService.ts` clas
 
 ## How to run the app
 
-The application is dockerized using [this guide](https://docs.adonisjs.com/cookbooks/dockerizing-adonis). As the guide features production build steps, to run the application locally, just run:
-
 ```
-docker composer up
-``` 
-
-`docker-composer.yml` file is defined to only use "local" dev steps from the `Dockerfile`
+docker compose up
+```
 
 ## Nice to have
 
