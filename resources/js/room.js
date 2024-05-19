@@ -19,6 +19,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     const messagesCenter = document.querySelector("#room-messages-center")
     const messagesCenterInput = document.querySelector("#room-messages-center-input")
     const messagesCenterBtn = document.querySelector("#room-messages-center-btn")
+    const txtInp = document.querySelector("#room_cavnas_text_tool_input");
     const roomQr = document.querySelector("#room-qr");
     const currentUser = await (await fetch("/api/auth/current")).json()
     const roomCode = window.location.href.split('/').at(-1)
@@ -61,7 +62,7 @@ window.addEventListener('DOMContentLoaded', async () => {
       messagesCenterInput.value = '';
     });
 
-    const getTextToolValue = () => document.querySelector("#room_cavnas_text_tool_input").value
+    const getTextToolValue = () => txtInp.value
 
     const drawAllObjects = (sketch) => {
         canvasObjects.forEach(obj => {
@@ -122,21 +123,27 @@ window.addEventListener('DOMContentLoaded', async () => {
             document.querySelector("#room-canvas-color").addEventListener('change', handleColorChange)
             document.querySelector("#room-canvas-brush-size").addEventListener('change', handleBrushSizeChange)
 
-            canvas.mouseClicked(() => {
+            canvas.mouseClicked((event) => {
                 if (tool === "text") {
-                    // const textToAdd = getTextToolValue()
-                    // if (textToAdd.trim().length > 0) {
-                    //     syncNewObject({
-                    //         x: sketch.mouseX,
-                    //         y: sketch.mouseY,
-                    //         text: textToAdd,
-                    //         color: color,
-                    //         size: brushSize,
-                    //         type: "text"
-                    //     })
-                    // } else {
-                    //     inp.focus()
-                    // }
+                    txtInp.style.display = "block"
+                    txtInp.style.top = `${event.clientY}px`
+                    txtInp.style.left = `${event.clientX}px`
+                    txtInp.focus();
+                    txtInp.addEventListener('keydown', (e) => {
+                        if(e.key === 'Enter') {
+                          syncNewObject({
+                              x: sketch.mouseX,
+                              y: sketch.mouseY,
+                              text: txtInp.value.trim(),
+                              color: color,
+                              size: brushSize,
+                              type: "text"
+                          })
+
+                          txtInp.style.display = "none"
+                          txtInp.value = '';
+                        }
+                    })
                 } else if (tool === "circle") {
                     syncNewObject({
                         x: sketch.mouseX,
@@ -181,7 +188,7 @@ window.addEventListener('DOMContentLoaded', async () => {
                         sketch.textSize(brushSize);
                         width = sketch.textWidth();
                     }
-                    const height = size * 0.75;
+                    const height = brushSize * 0.75;
                     sketch.line(sketch.mouseX, sketch.mouseY, sketch.mouseX + width, sketch.mouseY);
                     sketch.line(sketch.mouseX, sketch.mouseY, sketch.mouseX, sketch.mouseY - height);
                 } else if (["pen", "eraser"].includes(tool) && mousePressed) {
