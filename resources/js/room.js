@@ -1,4 +1,5 @@
 import { io } from "socket.io-client";
+import QRCode from 'qrcode';
 import p5 from "p5";
 
 const activeToolButtonClass = 'bg-purple-200'
@@ -18,8 +19,11 @@ window.addEventListener('DOMContentLoaded', async () => {
     const messagesCenter = document.querySelector("#room-messages-center")
     const messagesCenterInput = document.querySelector("#room-messages-center-input")
     const messagesCenterBtn = document.querySelector("#room-messages-center-btn")
+    const roomQr = document.querySelector("#room-qr");
     const currentUser = await (await fetch("/api/auth/current")).json()
     const roomCode = window.location.href.split('/').at(-1)
+
+    QRCode.toCanvas(roomQr, roomCode);
 
     const socket = new io(window.location.host, {
         query: {
