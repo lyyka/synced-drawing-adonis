@@ -129,11 +129,12 @@ window.addEventListener('DOMContentLoaded', async () => {
                     txtInp.style.top = `${event.clientY}px`
                     txtInp.style.left = `${event.clientX}px`
                     txtInp.focus();
+                    const xyfixed = {x: sketch.mouseX, y: sketch.mouseY};
                     txtInp.addEventListener('keydown', (e) => {
                         if(e.key === 'Enter') {
                           syncNewObject({
-                              x: sketch.mouseX,
-                              y: sketch.mouseY,
+                              x: xyfixed.x,
+                              y: xyfixed.y,
                               text: txtInp.value.trim(),
                               color: color,
                               size: brushSize,
