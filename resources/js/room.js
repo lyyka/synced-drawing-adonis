@@ -121,6 +121,7 @@ window.addEventListener('DOMContentLoaded', async () => {
 
             document.querySelectorAll("#room-canvas-controls > [tool]").forEach(handleToolButton)
             document.querySelector("#room-canvas-color").addEventListener('change', handleColorChange)
+            handleColorChange({target: document.querySelector("#room-canvas-color")})
             document.querySelector("#room-canvas-brush-size").addEventListener('change', handleBrushSizeChange)
 
             canvas.mouseClicked((event) => {
@@ -130,21 +131,24 @@ window.addEventListener('DOMContentLoaded', async () => {
                     txtInp.style.left = `${event.clientX}px`
                     txtInp.focus();
                     const xyfixed = {x: sketch.mouseX, y: sketch.mouseY};
-                    txtInp.addEventListener('keydown', (e) => {
-                        if(e.key === 'Enter') {
-                          syncNewObject({
-                              x: xyfixed.x,
-                              y: xyfixed.y,
-                              text: txtInp.value.trim(),
-                              color: color,
-                              size: brushSize,
-                              type: "text"
-                          })
+                    const keydown = (e) => {
+                      if(e.key === 'Enter') {
+                        syncNewObject({
+                            x: xyfixed.x,
+                            y: xyfixed.y,
+                            text: txtInp.value.trim(),
+                            color: color,
+                            size: brushSize,
+                            type: "text"
+                        })
 
-                          txtInp.style.display = "none"
-                          txtInp.value = '';
-                        }
-                    })
+                        txtInp.removeEventListener('keydown', keydown)
+
+                        txtInp.style.display = "none"
+                        txtInp.value = '';
+                      }
+                  };
+                  txtInp.addEventListener('keydown', keydown)
                 } else if (tool === "circle") {
                     syncNewObject({
                         x: sketch.mouseX,
