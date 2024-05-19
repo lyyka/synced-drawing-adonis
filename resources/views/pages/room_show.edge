@@ -5,7 +5,7 @@
 @end
 
 @section('content')
-<section class="rounded-3xl 
+<section class="rounded-3xl
 container mx-auto
 bg-purple-50 p-4 my-4">
     <div class="flex justify-between items-center">
@@ -13,7 +13,7 @@ bg-purple-50 p-4 my-4">
             <p><strong>Room code:</strong> {{ code }}</p>
             <p>You can share this code or the URL to allow others to join</p>
         </div>
-    
+
         <div class="flex items-center">
             <img class="inline-block mr-2" alt="User icon" src="/icons/user-icon-16.png" />
             <p id="room-users-count"></p>
@@ -51,7 +51,7 @@ bg-purple-50 p-4 my-4">
                 <input id="room-canvas-color" type="color" />
             </div>
             <div class="px-4 py-0.5 border flex items-center">
-                <input id="room-canvas-brush-size" value="14" 
+                <input id="room-canvas-brush-size" value="14"
                 class="border-none p-0 m-0 focus:border-none focus:border-white focus:shadow-none focus:ring-0"
                 type="number" min="1" max="100" />
             </div>
@@ -60,19 +60,30 @@ bg-purple-50 p-4 my-4">
         <div id="room-canvas"></div>
     </div>
 
-    <div class="max-h-60 overflow-y-auto rounded-3xl bg-white border p-4 my-4">
-        <h2 class="font-bold text-lg">Notifications</h2>
-        <div id="room-notification-center"></div>
+    <div>
+      <div class="max-h-60 overflow-y-auto rounded-3xl bg-white border p-4 my-4">
+          <h2 class="font-bold text-lg">Notifications</h2>
+          <div id="room-notification-center"></div>
+      </div>
+
+      <div class="max-h-60 overflow-y-auto rounded-3xl bg-white border p-4 my-4">
+          <h2 class="font-bold text-lg">Messages</h2>
+          <div id="room-messages-center"></div>
+          <div class="flex items-center gap-4">
+            <input type="text" placeholder="Enter message here..." id="room-messages-center-input" class="rounded-xl outline-none border-t-0 border-l-0 border-r-0 border-b-2 border-b-purple-200 flex-grow block" />
+            <button type="button" id="room-messages-center-btn" class="bg-purple-500 rounded-xl text-white p-2">Send</button>
+          </div>
+      </div>
     </div>
 </div>
 
-<section class="rounded-3xl 
+<section class="rounded-3xl
 container mx-auto
 bg-purple-50 p-4 my-4">
     <div class="flex justify-end">
         <form action="{{ route('room.leave', {code}) }}" method="post">
             {{ csrfField() }}
-    
+
             <button type="submit" class="rounded-xl bg-purple-500 text-white py-2 px-4">
                 Leave this room
             </button>

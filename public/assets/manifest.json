@@ -1,5 +1,5 @@
 {
-  "assets/app.css": "http://127.0.0.1:8080/assets/app.css",
-  "assets/app.js": "http://127.0.0.1:8080/assets/app.js",
-  "assets/room.js": "http://127.0.0.1:8080/assets/room.js"
+  "assets/app.css": "http://localhost:8080/assets/app.css",
+  "assets/app.js": "http://localhost:8080/assets/app.js",
+  "assets/room.js": "http://localhost:8080/assets/room.js"
 }

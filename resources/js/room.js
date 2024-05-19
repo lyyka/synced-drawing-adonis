@@ -1,5 +1,5 @@
-import { io } from "socket.io-client"
-import p5 from "p5"
+import { io } from "socket.io-client";
+import p5 from "p5";
 
 const activeToolButtonClass = 'bg-purple-200'
 let activeToolButton = null
@@ -15,6 +15,9 @@ let ellipse_start
 
 window.addEventListener('DOMContentLoaded', async () => {
     const notificationCenter = document.querySelector("#room-notification-center")
+    const messagesCenter = document.querySelector("#room-messages-center")
+    const messagesCenterInput = document.querySelector("#room-messages-center-input")
+    const messagesCenterBtn = document.querySelector("#room-messages-center-btn")
     const currentUser = await (await fetch("/api/auth/current")).json()
     const roomCode = window.location.href.split('/').at(-1)
 
@@ -27,18 +30,36 @@ window.addEventListener('DOMContentLoaded', async () => {
     })
 
 
+    const addMsgHtml = (msg) => {
+      messagesCenter.innerHTML += `<p><strong>${msg.username}</strong>: <span>${msg.message}</span></p>`;
+    }
+
     socket.on('new_user_joined', (event) => {
         notificationCenter.innerHTML += `<p><strong>${event.username}</strong> joined</p>`
+    })
+
+    socket.on('sync_new_message', (event) => {
+      addMsgHtml(event);
+    })
+
+    socket.on('sync_all_messages', (event) => {
+      console.log(event);
+      event.data.forEach(addMsgHtml);
     })
 
     const syncNewObject = (object) => {
         socket.emit('new_object_added', object)
     }
 
+    messagesCenterBtn.addEventListener('click', () => {
+      const msg = messagesCenterInput.value;
+      socket.emit('new_message_added', {username: currentUser.username, message: msg})
+      messagesCenterInput.value = '';
+    });
+
     const getTextToolValue = () => document.querySelector("#room_cavnas_text_tool_input").value
 
     const drawAllObjects = (sketch) => {
-        console.log(canvasObjects)
         canvasObjects.forEach(obj => {
             if (obj.type === "line") {
                 sketch.stroke(obj.color)

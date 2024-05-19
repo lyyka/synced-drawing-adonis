@@ -9,6 +9,24 @@ export default class RoomService {
         // test: new Room("test", "test")
     }
 
+    public addMessageToRoom(object: Object, roomCode: string) {
+      const room = this.find(roomCode)
+
+      if (room) {
+          room.addMessage(object)
+      }
+    }
+
+    public getAllMessages(roomCode: string) {
+      const room = this.find(roomCode)
+
+      if (!room) {
+          return [];
+      }
+
+      return room.getAllMessages();
+    }
+
     public addCanvasObjectToRoom(object: Object, roomCode: string) {
         const room = this.find(roomCode)
 

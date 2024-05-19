@@ -5,10 +5,19 @@ export default class Room {
     private code: string
     private participants: RoomParticipant[] = []
     private canvasObjects: Object[] = []
+    private messages: Object[] = []
 
     constructor(name: string, code: string) {
         this.name = name
         this.code = code
+    }
+
+    public addMessage(object: Object): void {
+      this.messages.push(object)
+    }
+
+    public getAllMessages(): Object[] {
+      return this.messages;
     }
 
     public addCanvasObject(object: Object): void {
